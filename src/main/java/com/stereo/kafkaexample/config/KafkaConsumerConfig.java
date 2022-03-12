@@ -1,5 +1,6 @@
 package com.stereo.kafkaexample.config;
 
+import com.stereo.kafkaexample.MessageRequestDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +28,7 @@ public class KafkaConsumerConfig {
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                StringSerializer.class);
+                MessageRequestDeserializer.class.getName());
         return props;
     }
 

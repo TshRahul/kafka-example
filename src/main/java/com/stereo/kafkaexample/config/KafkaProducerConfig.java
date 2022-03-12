@@ -1,5 +1,7 @@
 package com.stereo.kafkaexample.config;
 
+import com.stereo.kafkaexample.MessageRequest;
+import com.stereo.kafkaexample.MessageRequestSerializer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,17 +27,17 @@ public class KafkaProducerConfig {
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                StringSerializer.class);
+                MessageRequestSerializer.class.getName());
         return props;
     }
 
     @Bean
-    public ProducerFactory<String, String> producerFactory(){
+    public ProducerFactory<String, MessageRequest> producerFactory(){
         return new DefaultKafkaProducerFactory<>(producerConfig());
     }
 
     @Bean
-    public KafkaTemplate<String, String> kafkaTemplate(ProducerFactory<String, String> producerFactory){
+    public KafkaTemplate<String, MessageRequest> kafkaTemplate(ProducerFactory<String, MessageRequest> producerFactory){
         return new KafkaTemplate<>(producerFactory);
     }
 
